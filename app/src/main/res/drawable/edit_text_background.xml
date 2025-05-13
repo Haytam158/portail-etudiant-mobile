@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fond blanc -->
+    <solid android:color="#FFFFFF" />
+
+    <!-- Coins arrondis -->
+    <corners android:radius="10dp" />
+
+    <!-- Bordure bleue -->
+    <stroke
+        android:width="2dp"
+        android:color="#3949AB" />
+
+    <!-- (Note) Android ne supporte pas les ombres dans les fichiers shape directement -->
+</shape>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/top_group">
+        <item
+            android:id="@+id/action_dashboard"
+            android:title="Dashboard"
+            android:icon="@drawable/baseline_home_black" />
+        <item
+            android:id="@+id/action_users"
+            android:title="Utilisateurs"
+            android:icon="@drawable/group_black" />
+        <item
+            android:id="@+id/action_courses"
+            android:title="Cours"
+            android:icon="@drawable/courses_black" />
+    </group>
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="Déconnecter"
+        android:icon="@drawable/log_out"
+        android:orderInCategory="100" />
+
+
+</menu>

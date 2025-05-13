@@ -1,0 +1,665 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "63030f0c76458c54cd3e6501e0e3f998",
+    "entities": [
+      {
+        "tableName": "certificate",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`course_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `issueDate` INTEGER, `certificatePath` TEXT, PRIMARY KEY(`course_id`, `user_id`), FOREIGN KEY(`course_id`) REFERENCES `Course`(`course_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issueDate",
+            "columnName": "issueDate",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "certificatePath",
+            "columnName": "certificatePath",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "course_id",
+            "user_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_certificate_course_id",
+            "unique": false,
+            "columnNames": [
+              "course_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_certificate_course_id` ON `${TABLE_NAME}` (`course_id`)"
+          },
+          {
+            "name": "index_certificate_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_certificate_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Course",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "course_id"
+            ],
+            "referencedColumns": [
+              "course_id"
+            ]
+          },
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Course",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`course_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `description` TEXT, `title` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "course_id"
+          ]
+        }
+      },
+      {
+        "tableName": "course_student",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`course_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `grades` REAL, PRIMARY KEY(`course_id`, `user_id`), FOREIGN KEY(`course_id`) REFERENCES `Course`(`course_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grades",
+            "columnName": "grades",
+            "affinity": "REAL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "course_id",
+            "user_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_course_student_course_id",
+            "unique": false,
+            "columnNames": [
+              "course_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_course_student_course_id` ON `${TABLE_NAME}` (`course_id`)"
+          },
+          {
+            "name": "index_course_student_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_course_student_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Course",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "course_id"
+            ],
+            "referencedColumns": [
+              "course_id"
+            ]
+          },
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Exam",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exam_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `course_id` INTEGER, `totalpoints` INTEGER, FOREIGN KEY(`course_id`) REFERENCES `Course`(`course_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "examId",
+            "columnName": "exam_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "totalpoints",
+            "columnName": "totalpoints",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "exam_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Exam_course_id",
+            "unique": false,
+            "columnNames": [
+              "course_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Exam_course_id` ON `${TABLE_NAME}` (`course_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Course",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "course_id"
+            ],
+            "referencedColumns": [
+              "course_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "exam_result",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`exam_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `feedback` TEXT, `score` REAL, PRIMARY KEY(`exam_id`, `user_id`), FOREIGN KEY(`exam_id`) REFERENCES `Exam`(`exam_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "examId",
+            "columnName": "exam_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "feedback",
+            "columnName": "feedback",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "REAL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "exam_id",
+            "user_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_exam_result_exam_id",
+            "unique": false,
+            "columnNames": [
+              "exam_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_exam_result_exam_id` ON `${TABLE_NAME}` (`exam_id`)"
+          },
+          {
+            "name": "index_exam_result_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_exam_result_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Exam",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "exam_id"
+            ],
+            "referencedColumns": [
+              "exam_id"
+            ]
+          },
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Lesson",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`lesson_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `contentPath` TEXT, `module_id` INTEGER, FOREIGN KEY(`module_id`) REFERENCES `Module`(`module_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "lessonId",
+            "columnName": "lesson_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentPath",
+            "columnName": "contentPath",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "moduleId",
+            "columnName": "module_id",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "lesson_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Lesson_module_id",
+            "unique": false,
+            "columnNames": [
+              "module_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Lesson_module_id` ON `${TABLE_NAME}` (`module_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Module",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "module_id"
+            ],
+            "referencedColumns": [
+              "module_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Module",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`module_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `course_id` INTEGER, FOREIGN KEY(`course_id`) REFERENCES `Course`(`course_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "moduleId",
+            "columnName": "module_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "module_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Module_course_id",
+            "unique": false,
+            "columnNames": [
+              "course_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Module_course_id` ON `${TABLE_NAME}` (`course_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Course",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "course_id"
+            ],
+            "referencedColumns": [
+              "course_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Option",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`option_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `displayOrder` INTEGER, `isCorrect` INTEGER, `text` TEXT, `question_id` INTEGER, FOREIGN KEY(`question_id`) REFERENCES `Question`(`question_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "optionId",
+            "columnName": "option_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayOrder",
+            "columnName": "displayOrder",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isCorrect",
+            "columnName": "isCorrect",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "option_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Option_question_id",
+            "unique": false,
+            "columnNames": [
+              "question_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Option_question_id` ON `${TABLE_NAME}` (`question_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Question",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "question_id"
+            ],
+            "referencedColumns": [
+              "question_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Question",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`question_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `points` INTEGER, `questiontitle` TEXT, `exam_id` INTEGER, FOREIGN KEY(`exam_id`) REFERENCES `Exam`(`exam_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "questionId",
+            "columnName": "question_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "points",
+            "columnName": "points",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "questiontitle",
+            "columnName": "questiontitle",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "examId",
+            "columnName": "exam_id",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "question_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Question_exam_id",
+            "unique": false,
+            "columnNames": [
+              "exam_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Question_exam_id` ON `${TABLE_NAME}` (`exam_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Exam",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "exam_id"
+            ],
+            "referencedColumns": [
+              "exam_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "teacher_course",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`course_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `canEditCourse` INTEGER, `canGradeExams` INTEGER, PRIMARY KEY(`user_id`, `course_id`), FOREIGN KEY(`course_id`) REFERENCES `Course`(`course_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`user_id`) REFERENCES `User`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "courseId",
+            "columnName": "course_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "canEditCourse",
+            "columnName": "canEditCourse",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "canGradeExams",
+            "columnName": "canGradeExams",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "user_id",
+            "course_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_teacher_course_course_id",
+            "unique": false,
+            "columnNames": [
+              "course_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_teacher_course_course_id` ON `${TABLE_NAME}` (`course_id`)"
+          },
+          {
+            "name": "index_teacher_course_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_teacher_course_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Course",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "course_id"
+            ],
+            "referencedColumns": [
+              "course_id"
+            ]
+          },
+          {
+            "table": "User",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cin` TEXT, `email` TEXT, `password` TEXT, `username` TEXT, `role` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "userID",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cin",
+            "columnName": "cin",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "role",
+            "columnName": "role",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "user_id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '63030f0c76458c54cd3e6501e0e3f998')"
+    ]
+  }
+}
